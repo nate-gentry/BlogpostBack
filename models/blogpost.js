@@ -33,6 +33,22 @@ const create = ({
     return newBlogpost
 }
 
+const update = (blogpost_id , data)=>{
+        const blogpostJSON = fs.readFileSync(blogpostPath, 'utf-8');
+        const blogposts = JSON.parse(blogpostJSON);
+        const updateBlogposts = blogposts.map(blogpost => {
+            if(blogpost.id === blogpost_id){
+                const updateBlogpost = {...blogpost, ...data}
+                return updateBlogpost
+            }else {
+                return blogpost
+            }
+        })
+            const updatedBlogpostJSON = JSON.stringify(updateBlogposts);
+            fs.writeFileSync(blogpostPath, updatedBlogpostJSON)
+            return updateBlogposts
+}
+
 const destroy = blogpost_id => {
     let deleteObj;
     const blogpostJSON = fs.readFileSync(blogpostPath, 'utf-8');
@@ -50,21 +66,6 @@ const destroy = blogpost_id => {
     return destroyBlogpost
 }
 
-const update = (blogpost_id , data)=>{
-        const blogpostJSON = fs.readFileSync(blogpostPath, 'utf-8');
-        const blogposts = JSON.parse(blogpostJSON);
-        const updateBlogposts = blogposts.map(blogpost => {
-            if(blogpost.id === blogpost_id){
-                const updateBlogpost = {...blogpost, ...data}
-                return updateBlogpost
-            }else {
-                return blogpost
-            }
-        })
-            const updatedBlogpostJSON = JSON.stringify(updateBlogposts);
-            fs.writeFileSync(blogpostPath, updatedBlogpostJSON)
-            return updateBlogpost
-}
 
 module.exports = {
     index,
