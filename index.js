@@ -3,6 +3,7 @@ const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
 const PORT = process.env.PORT || 3007;
+const blogpostRoutes = require('./routes/blogpost')
 
 app.use(cors());
 app.use(morgan('dev'));
